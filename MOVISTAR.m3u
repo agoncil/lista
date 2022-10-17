@@ -1,0 +1,64 @@
+#EXTM3U url-tvg="https://raw.githubusercontent.com/dracohe/CARLOS/master/guide_IPTV.xml"
+#EXTINF:-1, [015] M+ Clásicos {DRM}
+rtp://@239.0.3.41:8208
+#EXTINF:-1, [016] M+ Acción {DRM}
+rtp://@239.0.3.42:8208
+#EXTINF:-1, [017] M+ Comedia {DRM}
+rtp://@239.0.3.43:8208
+#EXTINF:-1, [018] M+ Drama {DRM}
+rtp://@239.0.3.44:8208
+#EXTINF:-1, [019] M+ Cine Español {DRM}
+rtp://@239.0.3.45:8208
+#EXTINF:-1, [020] M+ Fest {DRM}
+rtp://@239.0.3.30:8208
+#EXTINF:-1, [021] M+ La Resistencia {DRM}
+rtp://@239.0.1.177:8208
+#EXTINF:-1, [022] TCM {DRM}
+rtp://@239.0.6.5:8208
+#EXTINF:-1, [023] Hollywood {DRM}
+rtp://@239.0.0.16:8208
+#EXTINF:-1, [024] XTRM {DRM}
+rtp://@239.0.1.180:8208
+#EXTINF:-1, [025] Sundance Channel {DRM}
+rtp://@239.0.0.102:8208
+#EXTINF:-1, [026] DARK {DRM}
+rtp://@239.0.0.39:8208
+#EXTINF:-1, [027] Somos {DRM}
+rtp://@239.0.1.181:8208
+#EXTINF:-1, [028] Bom Cine {DRM}
+rtp://@239.0.1.186:8208
+#EXTINF:-1, [029] Paramount Network
+rtp://@239.0.0.90:8208
+
+#EXTINF:-1, [031] M+ Series {DRM}
+rtp://@239.0.3.20:8208
+#EXTINF:-1, [032] M+ Series 2 {DRM}
+rtp://@239.0.5.4:8208
+#EXTINF:-1, [033] FOX {DRM}
+rtp://@239.0.0.74:8208
+#EXTINF:-1, [034] AXN {DRM}
+rtp://@239.0.0.14:8208
+#EXTINF:-1, [035] TNT {DRM}
+rtp://@239.0.0.44:8208
+#EXTINF:-1, [036] Comedy Central {DRM}
+rtp://@239.0.0.68:8208
+#EXTINF:-1, [037] Calle 13 {DRM}
+rtp://@239.0.0.13:8208
+#EXTINF:-1, [038] COSMO {DRM}
+rtp://@239.0.0.15:8208
+#EXTINF:-1, [039] AMC {DRM}
+rtp://@239.0.0.8:8208
+#EXTINF:-1, [040] AXN White {DRM}
+rtp://@239.0.0.62:8208
+#EXTINF:-1, [041] Syfy {DRM}
+rtp://@239.0.0.111:8208
+#EXTINF:-1, [042] TRECE
+rtp://@239.0.0.91:8208
+#EXTINF:-1, [044] Energy
+rtp://@239.0.0.59:8208
+#EXTINF:-1, [045] FDF {DRM}
+rtp://@239.0.0.84:8208
+#EXTINF:-1, [046] Neox
+rtp://@239.0.0.107:8208
+#EXTINF:-1, [047] A3Series
+rtp://@239.0.3.29:8208
