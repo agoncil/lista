@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markaje · Parches y monedas para tu unidad</title>
+<meta name="description" content="Parches, monedas, metopas, grabados y textil personalizados para el Ejército, la Guardia Civil y la Policía. Diseño y prueba gratis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="split">
+  <div class="read">
+    <header class="nav">
+      <a href="#productos">Productos</a>
+      <a class="wordmark" href="#" aria-label="Markaje, inicio">MARKAJE</a>
+      <a href="#precios">Precios</a>
+    </header>
+
+    <section class="hero" data-stage="parche" aria-labelledby="h1">
+      <figure class="mfig" data-obj="parche">{{parche}}</figure>
+      <h1 id="h1" class="display rv">Marca tu unidad</h1>
+      <p class="lead rv">Parches, monedas, metopas, grabados y textil para el Ejército, la Guardia Civil y la Policía. Diseño y prueba gratis antes de fabricar.</p>
+      <a class="btn rv" id="quote" href="mailto:hola@markaje.es?subject=Presupuesto%20de%20parches">Pedir presupuesto</a>
+
+      <form class="config rv" id="config" aria-label="Diseña tu parche">
+        <p class="config-note">Escribe tu unidad y mira cómo queda.</p>
+        <label class="field"><span>Unidad</span><input name="unit" maxlength="26" value="II Batallón Zaragoza" autocomplete="off"></label>
+        <label class="field"><span>Lema</span><input name="motto" maxlength="30" value="Siempre adelante" autocomplete="off"></label>
+        <fieldset class="chips">
+          <legend>Color</legend>
+          <label><input type="radio" name="colour" value="od" checked><i style="--sw:#4b5228"></i>Verde OD</label>
+          <label><input type="radio" name="colour" value="coyote"><i style="--sw:#8a6a42"></i>Coyote</label>
+          <label><input type="radio" name="colour" value="negro"><i style="--sw:#1b1c19"></i>Negro</label>
+          <label><input type="radio" name="colour" value="azul"><i style="--sw:#1e2c48"></i>Azul</label>
+        </fieldset>
+        <fieldset class="chips">
+          <legend>Forma</legend>
+          <label><input type="radio" name="shape" value="escudo" checked>Escudo</label>
+          <label><input type="radio" name="shape" value="redondo">Redondo</label>
+          <label><input type="radio" name="shape" value="rectangulo">Rectángulo</label>
+        </fieldset>
+        <p class="config-foot">El presupuesto se envía con este diseño.</p>
+      </form>
+    </section>
+
+    <section class="showcase" id="productos" data-stage="parche" aria-labelledby="h-prod">
+      <figure class="mfig" data-obj="parche" id="mfig-prod">{{parche}}</figure>
+      <h2 id="h-prod" class="head rv">Lo que hacemos</h2>
+      <div class="tabs rv" role="tablist" aria-label="Productos">
+        <button role="tab" aria-selected="true" data-kind="parche">Parches</button>
+        <button role="tab" aria-selected="false" data-kind="moneda">Monedas</button>
+        <button role="tab" aria-selected="false" data-kind="metopa">Metopas</button>
+        <button role="tab" aria-selected="false" data-kind="placa">Grabado</button>
+        <button role="tab" aria-selected="false" data-kind="camiseta">Textil</button>
+      </div>
+      <div class="prod rv" role="tabpanel" aria-live="polite">
+        <h3 class="lead" id="prod-title">Parches bordados, tejidos y de PVC</h3>
+        <p id="prod-text">Con velcro o para coser, del escudo de la compañía al nombre de pecho. Bordado de hasta 12 colores o PVC 3D para el que vive a la intemperie.</p>
+        <p class="price" id="prod-price">Desde 3,90 € por unidad · mínimo 50</p>
+      </div>
+      <div class="cells rv">
+        <a class="cell ink" href="#contacto">Pedir presupuesto</a>
+        <a class="cell tone" href="#precios">Ver precios</a>
+      </div>
+    </section>
+
+    <section class="list" data-stage="moneda" aria-labelledby="h-list">
+      <figure class="mfig" data-obj="moneda">{{moneda}}</figure>
+      <div class="sheet rv">
+        <h2 id="h-list" class="head">Para cada cuerpo y ocasión</h2>
+        <p class="sheet-note">Lo que más nos piden, según quién lo encarga</p>
+        <div class="group">
+          <h3>Fuerzas Armadas</h3>
+          <ul>
+            <li><span>Ejército de Tierra</span><span>Parches, monedas</span></li>
+            <li><span>Armada</span><span>Monedas, metopas</span></li>
+            <li><span>Ejército del Aire y del Espacio</span><span>Parches, textil</span></li>
+            <li><span>UME</span><span>Parches, textil</span></li>
+            <li><span>Academias y escuelas</span><span>Monedas, textil</span></li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Seguridad</h3>
+          <ul>
+            <li><span>Guardia Civil</span><span>Parches, placas</span></li>
+            <li><span>Policía Nacional</span><span>Parches, monedas</span></li>
+            <li><span>Policías autonómicas</span><span>Parches, metopas</span></li>
+            <li><span>Policías locales</span><span>Parches, textil</span></li>
+            <li><span>Asociaciones y veteranos</span><span>Monedas, metopas</span></li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Ocasiones</h3>
+          <ul>
+            <li><span>Despedida de un compañero</span><span>Metopa</span></li>
+            <li><span>Ascenso</span><span>Placa grabada</span></li>
+            <li><span>Jubilación</span><span>Metopa</span></li>
+            <li><span>Fin de curso o promoción</span><span>Moneda</span></li>
+            <li><span>Aniversario de la unidad</span><span>Moneda, parche</span></li>
+            <li><span>Misión en el exterior</span><span>Parche, camiseta</span></li>
+          </ul>
+        </div>
+        <p class="sheet-foot">¿Tu unidad no aparece? La hacemos igual.</p>
+      </div>
+    </section>
+
+    <section class="how" data-stage="metopa" aria-labelledby="h-how">
+      <figure class="mfig" data-obj="metopa">{{metopa}}</figure>
+      <div class="how-head rv">
+        <h2 id="h-how" class="head">Del boceto a tu unidad</h2>
+        <p>Nos mandas una idea, un escudo o una foto de una servilleta. Te devolvemos el diseño dibujado y no fabricamos nada hasta que lo apruebes.</p>
+      </div>
+      <div class="slip rv">
+        <h3>Semana 1</h3>
+        <ul>
+          <li><span>Nos cuentas qué necesitas</span><i></i><span>Día 1</span></li>
+          <li><span>Boceto en color, gratis</span><i></i><span>48 h</span></li>
+          <li><span>Cambios hasta que te guste</span><i></i><span>Sin límite</span></li>
+        </ul>
+        <h3>Semanas 2 y 3</h3>
+        <ul>
+          <li><span>Fabricación</span><i></i><span>10–15 días</span></li>
+          <li><span>Foto del pedido terminado</span><i></i><span>Antes de enviar</span></li>
+        </ul>
+        <h3>Semana 4</h3>
+        <ul>
+          <li><span>Envío a la unidad o a casa</span><i></i><span>24–72 h</span></li>
+        </ul>
+        <p class="slip-total"><span>Tu pedido en la unidad</span><span>3–4 semanas</span></p>
+      </div>
+    </section>
+  </div>
+
+  <aside class="stage" aria-label="Vista previa">
+    <div class="stage-objs">
+      <figure class="layer on" data-kind="parche" data-obj="parche">{{parche}}</figure>
+      <figure class="layer" data-kind="moneda" data-obj="moneda">{{moneda}}</figure>
+      <figure class="layer" data-kind="metopa" data-obj="metopa">{{metopa}}</figure>
+      <figure class="layer" data-kind="placa" data-obj="placa">{{placa}}</figure>
+      <figure class="layer" data-kind="camiseta" data-obj="camiseta">{{camiseta}}</figure>
+    </div>
+    <p class="stage-bar"><span>Diseño y prueba gratis</span><span>Envíos a toda España</span></p>
+  </aside>
+</div>
+
+<section class="pricing" id="precios" aria-labelledby="h-price">
+  <div class="pricing-side rv">
+    <h2 id="h-price" class="head">Precios orientativos</h2>
+    <p>IVA incluido. El precio final depende del tamaño, los colores y la cantidad; te lo cerramos con el boceto.</p>
+  </div>
+  <div class="pricing-cols">
+    <div class="pgroup rv">
+      <h3>Parches</h3>
+      <ul>
+        <li><div><span>Bordado, hasta 8 cm</span><small>Velcro o para coser, hasta 12 colores</small></div><b>3,90 €</b></li>
+        <li><div><span>PVC 3D, hasta 8 cm</span><small>Resistente al agua, con velcro</small></div><b>4,50</b></li>
+        <li><div><span>Nombre de pecho</span><small>Bordado sobre cinta, con velcro</small></div><b>2,90</b></li>
+      </ul>
+    </div>
+    <div class="pgroup rv">
+      <h3>Monedas</h3>
+      <ul>
+        <li><div><span>Moneda de unidad, 40 mm</span><small>Metal envejecido, esmalte a dos caras</small></div><b>5,90 €</b></li>
+        <li><div><span>Moneda de promoción, 50 mm</span><small>Con estuche y número de serie</small></div><b>8,50</b></li>
+      </ul>
+    </div>
+    <div class="pgroup rv">
+      <h3>Metopas y grabado</h3>
+      <ul>
+        <li><div><span>Metopa de madera</span><small>Escudo en relieve y placa con dedicatoria</small></div><b>45 €</b></li>
+        <li><div><span>Placa de identificación</span><small>Acero grabado a láser, con cadena</small></div><b>9</b></li>
+        <li><div><span>Navaja o cartera grabada</span><small>Nombre, empleo y fecha</small></div><b>24</b></li>
+      </ul>
+    </div>
+    <div class="pgroup rv">
+      <h3>Textil</h3>
+      <ul>
+        <li><div><span>Camiseta técnica serigrafiada</span><small>Pecho y espalda, tallas XS a 3XL</small></div><b>9,50 €</b></li>
+        <li><div><span>Sudadera bordada</span><small>Escudo en pecho y lema en manga</small></div><b>26</b></li>
+      </ul>
+    </div>
+    <div class="pgroup pack rv">
+      <h3>Pack para la unidad</h3>
+      <ul>
+        <li><div><span>50 parches, 50 monedas y 50 llaveros</span><small>Un mismo diseño en tres piezas, boceto incluido</small></div><b>690 €</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" aria-labelledby="h-faq">
+  <div class="faq-text">
+    <h2 id="h-faq" class="head rv">Antes de pedir</h2>
+    <ul class="facts rv">
+      <li>Mínimo: 1 unidad en metopas y grabados, 50 en parches y monedas.</li>
+      <li>Plazo habitual: de 3 a 4 semanas desde que apruebas el boceto.</li>
+      <li>Factura a nombre de la unidad, la asociación o un particular.</li>
+    </ul>
+    <div class="qa rv">
+      <details>
+        <summary>¿Podéis usar el escudo oficial de mi unidad?</summary>
+        <p>Sí, cuando el pedido lo hace la propia unidad o cuenta con su autorización. Para regalos particulares te proponemos un diseño propio que no reproduzca emblemas oficiales.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto cuesta el diseño?</summary>
+        <p>Nada. El boceto y los cambios van incluidos, aunque al final no hagas el pedido.</p>
+      </details>
+      <details>
+        <summary>¿Puedo ver una muestra antes del pedido grande?</summary>
+        <p>Antes de enviar te mandamos una foto del pedido terminado. En monedas y parches podemos fabricar una muestra física con un pequeño coste que se descuenta del pedido.</p>
+      </details>
+      <details>
+        <summary>¿Enviáis a Canarias, Ceuta, Melilla o a una base fuera?</summary>
+        <p>A toda España sí, con los trámites de aduana para Canarias, Ceuta y Melilla incluidos. Para bases en el exterior, escríbenos y buscamos la mejor vía.</p>
+      </details>
+      <details>
+        <summary>¿Cómo se paga?</summary>
+        <p>Por transferencia o tarjeta: la mitad al aprobar el boceto y el resto antes del envío.</p>
+      </details>
+    </div>
+    <a class="btn rv" href="#contacto">Pedir presupuesto</a>
+  </div>
+  <div class="faq-figs">
+    <figure class="tall rv" data-obj="camiseta">{{camiseta}}</figure>
+    <figure class="sq rv" data-obj="parche">{{parche}}</figure>
+  </div>
+</section>
+
+<section class="contact" id="contacto" aria-labelledby="h-contact">
+  <p class="statement rv">Encargos de una unidad, una promoción o un compañero que se despide.</p>
+  <figure class="contact-fig rv" data-obj="moneda">{{moneda}}</figure>
+  <div class="contact-links rv">
+    <h2 id="h-contact">¿Hablamos de tu pedido?</h2>
+    <a href="mailto:hola@markaje.es">hola@markaje.es</a>
+    <a href="https://wa.me/34600000000">WhatsApp 600 000 000</a>
+    <p>Respondemos en el día, de lunes a viernes.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>Markaje · personalización para unidades</span>
+  <nav aria-label="Pie"><a href="#productos">Productos</a><a href="#precios">Precios</a><a href="#contacto">Contacto</a></nav>
+  <span>© 2026 · <a href="#privacidad">Privacidad</a></span>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
