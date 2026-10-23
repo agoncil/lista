@@ -115,5 +115,87 @@ function shirt(s) {
 </svg>`;
 }
 
-export const OBJECTS = { parche: patch, moneda: coin, metopa, placa: tag, camiseta: shirt };
+
+function mug(s) {
+  const c = COLOURS[s.colour] || COLOURS.od;
+  const unit = clip(s.unit, 22).toUpperCase(), motto = clip(s.motto, 26);
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Taza personalizada: ${esc(unit)}">
+  <path d="M300 150 C370 150 370 290 300 290" fill="none" stroke="#d9d6cc" stroke-width="26"/>
+  <rect x="70" y="100" width="240" height="260" rx="18" fill="#f4f2ec"/>
+  <rect x="70" y="100" width="240" height="22" rx="10" fill="#e2dfd5"/>
+  <circle cx="190" cy="200" r="52" fill="${c.cloth}"/>
+  ${star(190, 200, 30, c.thread)}
+  ${laurel(190, 182, 66, c.cloth, -1)}${laurel(190, 182, 66, c.cloth, 1)}
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="${fit(unit, 200, 24)}" fill="${c.cloth}">${esc(unit)}</text>
+  <text x="190" y="328" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="${fit(motto, 190, 15)}" fill="${c.dark}">${esc(motto)}</text>
+</svg>`;
+}
+
+function enamelMug(s) {
+  const c = COLOURS[s.colour] || COLOURS.od;
+  const unit = clip(s.unit, 22).toUpperCase();
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Taza esmaltada de campaña: ${esc(unit)}">
+  <path d="M290 170 C350 170 350 280 290 280" fill="none" stroke="#2a2a26" stroke-width="20"/>
+  <path d="M80 130 H300 L290 350 C290 362 280 370 268 370 H112 C100 370 90 362 90 350 Z" fill="${c.cloth}"/>
+  <path d="M74 122 H306 V138 H74 Z" fill="#2a2a26"/>
+  <path d="M90 350 C90 362 100 370 112 370 H268 C280 370 290 362 290 350 L290 342 H90 Z" fill="#2a2a26"/>
+  ${star(190, 215, 36, c.thread)}
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="${fit(unit, 180, 24)}" fill="${c.thread}">${esc(unit)}</text>
+</svg>`;
+}
+
+function cap(s) {
+  const c = COLOURS[s.colour] || COLOURS.od;
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Gorra bordada">
+  <path d="M60 280 C60 160 130 110 210 110 C290 110 340 170 340 280 Z" fill="${c.cloth}"/>
+  <path d="M210 110 C190 150 185 220 190 280" fill="none" stroke="${c.dark}" stroke-width="4"/>
+  <path d="M60 280 H340 C350 280 352 296 340 300 C300 318 220 330 150 326 C100 322 60 312 50 300 C44 292 50 280 60 280 Z" fill="${c.dark}"/>
+  <circle cx="210" cy="110" r="10" fill="${c.dark}"/>
+  <path d="M110 170 H190 V250 H110 Z" fill="${c.dark}"/>
+  <path d="M116 176 H184 V244 H116 Z" fill="none" stroke="${c.thread}" stroke-width="3" stroke-dasharray="6 4"/>
+  ${star(150, 210, 24, c.thread)}
+</svg>`;
+}
+
+function keyring(s) {
+  const c = COLOURS[s.colour] || COLOURS.od;
+  const unit = clip(s.unit, 14).toUpperCase();
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Llavero de PVC: ${esc(unit)}">
+  <circle cx="200" cy="84" r="46" fill="none" stroke="#9da09a" stroke-width="10"/>
+  <rect x="190" y="126" width="20" height="44" rx="8" fill="#8e8e86"/>
+  <circle cx="200" cy="280" r="118" fill="${c.dark}"/>
+  <circle cx="200" cy="280" r="104" fill="${c.cloth}"/>
+  <circle cx="200" cy="280" r="88" fill="none" stroke="${c.thread}" stroke-width="5"/>
+  ${star(200, 262, 40, c.thread)}
+  <text x="200" y="336" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="${fit(unit, 130, 24)}" fill="${c.thread}">${esc(unit)}</text>
+</svg>`;
+}
+
+function pin(s) {
+  const c = COLOURS[s.colour] || COLOURS.od;
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="${c.cloth}"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  ${star(200, 160, 40, '#e9c96e')}
+  ${laurel(200, 270, 56, '#e9c96e', -1)}${laurel(200, 270, 56, '#e9c96e', 1)}
+</svg>`;
+}
+
+function gift(s) {
+  const unit = clip(s.unit, 26).toUpperCase();
+  return `<svg viewBox="0 0 400 440" role="img" aria-label="Moneda en estuche de regalo: ${esc(unit)}">
+  <path d="M60 90 H340 V170 H60 Z" fill="#1f2a44"/>
+  <path d="M72 102 H328 V170 H72 Z" fill="#2c3a5c"/>
+  <path d="M50 170 H350 V370 H50 Z" fill="#1f2a44"/>
+  <path d="M66 186 H334 V354 H66 Z" fill="#141c30"/>
+  <circle cx="200" cy="270" r="74" fill="#6f5a2c"/>
+  <circle cx="200" cy="270" r="68" fill="#c9a24e"/>
+  <circle cx="200" cy="270" r="42" fill="#4b5228"/>
+  ${star(200, 268, 28, '#e9c96e')}
+  <text x="200" y="138" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="${fit(unit, 220, 20)}" fill="#c9a24e" letter-spacing="2">${esc(unit)}</text>
+</svg>`;
+}
+
+export const OBJECTS = { parche: patch, moneda: coin, metopa, placa: tag, camiseta: shirt, taza: mug, campana: enamelMug, gorra: cap, llavero: keyring, pin, estuche: gift };
 export const render = (kind, s) => (OBJECTS[kind] || patch)({ ...DEFAULT, ...s });

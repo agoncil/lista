@@ -1,0 +1,845 @@
+<title>Markaje</title>
+<meta name="description" content="Tienda de personalización para el Ejército, la Guardia Civil y la Policía: textil, tazas, parches, merchandising, metopas y regalos protocolarios.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Archivo:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<style>
+/* Markaje tienda — a store dressed like the unit's own kit: OD green fields, gold thread, stone ground.
+   Layout: notice bar, sticky header with search and basket, category rail, then catalogue blocks. */
+:root {
+  --ground: #ecebe4;
+  --paper: #f7f6f2;
+  --ink: #1c2014;
+  --muted: #4f513f;
+  --line: #d3d1c4;
+  --od: #3f4526;
+  --od-deep: #262a19;
+  --od-ink: #ece6cf;
+  --od-muted: #c6c2a6;
+  --gold: #c9a24e;
+  --gold-deep: #b18a37;
+  --gold-ink: #1c2014;
+  --t-od: #dddfcd;
+  --t-coyote: #e7dcc8;
+  --t-stone: #e1e0d9;
+  --t-blue: #d8dce4;
+
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --text: 'Archivo', system-ui, sans-serif;
+  --s-small: 0.875rem;
+  --s-body: 1rem;
+  --s-lead: 1.125rem;
+  --s-h3: 1.0625rem;
+  --s-h2: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+  --s-h1: clamp(2.75rem, 1.6rem + 4.6vw, 5.5rem);
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --radius: 6px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--text); font-size: var(--s-body); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; }
+svg { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wrap { max-width: 1320px; margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+h1, h2 { font-family: var(--display); font-weight: 800; line-height: 0.95; letter-spacing: 0; text-wrap: balance; }
+h2 { font-size: var(--s-h2); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: var(--radius); font-weight: 600; text-decoration: none; transition: background-color 180ms ease, color 180ms ease, transform 120ms ease; }
+.btn:active { transform: scale(0.98); }
+.btn.gold { background: var(--gold); color: var(--gold-ink); }
+.btn.gold:hover { background: var(--gold-deep); }
+.btn.line { box-shadow: inset 0 0 0 2px var(--od-ink); color: var(--od-ink); }
+.btn.line:hover { background: var(--od-ink); color: var(--od-deep); }
+.btn.ink { background: var(--od); color: var(--od-ink); }
+.btn.ink:hover { background: var(--od-deep); }
+
+/* ---------- notice + header ---------- */
+.notice { background: var(--od-deep); color: var(--od-ink); font-size: var(--s-small); }
+.notice-in { display: flex; justify-content: space-between; gap: 16px; padding-block: 8px; }
+.only-wide { display: none; }
+@media (min-width: 760px) { .only-wide { display: inline; } p.only-wide { display: block; } }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.top-in { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; padding-block: 12px; }
+.menu-btn { display: none; background: none; border: 0; width: 44px; height: 44px; padding: 10px; }
+.top svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand .brand-mark { width: 40px; height: 44px; stroke: none; }
+.brand span { font-family: var(--display); font-weight: 800; font-size: 1.75rem; letter-spacing: 0.04em; }
+.search { position: relative; display: flex; align-items: center; max-width: 520px; width: 100%; justify-self: center; }
+.search svg { position: absolute; left: 14px; width: 20px; height: 20px; color: var(--muted); }
+.search input { width: 100%; min-height: 46px; padding: 0 16px 0 44px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ground); }
+.search input:focus { outline: none; border-color: var(--od); box-shadow: 0 0 0 3px var(--t-od); }
+.tools { display: flex; gap: 6px; }
+.tools a { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px; text-decoration: none; border-radius: var(--radius); transition: background-color 180ms ease; }
+.tools a:hover { background: var(--ground); }
+.tools svg { width: 22px; height: 22px; }
+.bag b { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--od); color: var(--od-ink); font-size: 0.8125rem; display: grid; place-items: center; transition: transform 200ms ease; }
+.bag b.bump { transform: scale(1.25); }
+
+.cats { border-top: 1px solid var(--line); }
+.cats-in { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.cats a { display: flex; align-items: center; min-height: 46px; padding: 0 14px; white-space: nowrap; font-weight: 600; text-decoration: none; border-bottom: 3px solid transparent; transition: border-color 180ms ease, color 180ms ease; }
+.cats a:hover { border-color: var(--gold); }
+.cats-b2b { margin-left: auto; }
+.cats-b2b a { color: var(--od); }
+
+/* ---------- hero ---------- */
+.hero { background: var(--od); color: var(--od-ink); overflow: hidden; }
+.hero-in { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-block: 64px; }
+.hero h1 { font-size: var(--s-h1); max-width: 11ch; }
+.hero-text p { margin-top: 24px; max-width: 46ch; font-size: var(--s-lead); color: var(--od-ink); }
+.hero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-art { position: relative; aspect-ratio: 1.1; }
+.art svg { width: 100%; height: auto; }
+.art-patch { position: absolute; left: 4%; top: 0; width: 56%; transform: rotate(-6deg); }
+.art-coin { position: absolute; right: 0; top: 16%; width: 46%; }
+.art-mug { position: absolute; left: 34%; bottom: -4%; width: 42%; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art .art { animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .art-coin { animation-delay: 120ms !important; }
+  .art-mug { animation-delay: 240ms !important; }
+  @keyframes rise { from { opacity: 0; translate: 0 24px; } }
+}
+
+/* ---------- promises ---------- */
+.promises { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding-block: 24px; }
+.promises li { display: flex; gap: 12px; align-items: center; font-size: 0.9375rem; }
+.promises svg { flex: none; width: 28px; height: 28px; fill: none; stroke: var(--od); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- blocks ---------- */
+.block { padding-block: 56px; }
+.block > h2, .block-head { margin-bottom: 28px; }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cat { display: grid; grid-template-columns: 42% 1fr; align-items: center; min-height: 180px; background: var(--paper); border-radius: var(--radius); text-decoration: none; overflow: hidden; transition: transform 200ms ease; }
+.cat:hover { transform: translateY(-3px); }
+.cat:hover .cat-text b { text-decoration: underline; text-underline-offset: 4px; }
+.cat-img { background: var(--tile); height: 100%; display: grid; place-items: center; padding: 14px; }
+.cat-img svg { max-height: 160px; width: auto; }
+.cat-text { display: grid; gap: 6px; padding: 18px 20px; }
+.cat-text b { font-family: var(--display); font-weight: 800; font-size: 1.625rem; line-height: 1; }
+.cat-text span { font-size: 0.9375rem; color: var(--muted); }
+.cat-text em { font-style: normal; font-weight: 600; font-size: 0.9375rem; }
+
+.bodies { background: var(--paper); padding-block: 48px; }
+.bodies h2 { margin-bottom: 24px; }
+.body-list { display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; }
+.body-list a { display: grid; justify-items: center; gap: 8px; padding: 12px 6px; text-align: center; text-decoration: none; font-size: 0.9375rem; font-weight: 600; line-height: 1.25; border-radius: var(--radius); transition: background-color 180ms ease; }
+.body-list a:hover { background: var(--ground); }
+.body-list svg { width: 64px; height: 70px; }
+
+.block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); font-size: 0.9375rem; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease; }
+.chips button:hover { border-color: var(--od); }
+.chips button[aria-pressed=true] { background: var(--od); border-color: var(--od); color: var(--od-ink); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 16px; }
+.product { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.product-img { display: grid; place-items: center; aspect-ratio: 1; background: var(--tile); border-radius: var(--radius); padding: 10%; overflow: hidden; }
+.product-img svg { width: 100%; height: 100%; transition: transform 300ms ease; }
+.product-img:hover svg { transform: scale(1.05); }
+.product-info { display: grid; gap: 4px; flex: 1; }
+.product h3 { font-size: var(--s-h3); font-weight: 600; line-height: 1.3; }
+.product h3 a { text-decoration: none; }
+.product h3 a:hover { text-decoration: underline; }
+.product-meta { font-size: var(--s-small); color: var(--muted); }
+.product-price { font-weight: 700; font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+.product-price span { font-weight: 400; font-size: var(--s-small); color: var(--muted); }
+.add { min-height: 44px; border: 2px solid var(--od); border-radius: var(--radius); background: transparent; font-weight: 600; transition: background-color 180ms ease, color 180ms ease, transform 120ms ease; }
+.add:hover { background: var(--od); color: var(--od-ink); }
+.add:active { transform: scale(0.98); }
+.empty { padding: 32px 0; font-size: var(--s-lead); }
+
+/* ---------- steps (a real sequence, so numbered) ---------- */
+.steps-band { background: var(--od-deep); color: var(--od-ink); padding-block: 56px; }
+.steps { margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; gap: 6px; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 3rem; line-height: 1; color: var(--gold); }
+.steps b { font-size: var(--s-lead); }
+.steps span { color: var(--od-muted); }
+
+/* ---------- protocol ---------- */
+.protocol { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding-block: 72px; }
+.protocol-art { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--t-coyote); border-radius: var(--radius); padding: 32px; }
+.protocol-text p { margin-top: 20px; max-width: 52ch; font-size: var(--s-lead); }
+.ticks { margin: 24px 0 32px; display: grid; gap: 10px; }
+.ticks li { position: relative; padding-left: 30px; }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 12px; height: 7px; border-left: 3px solid var(--od); border-bottom: 3px solid var(--od); transform: rotate(-45deg); }
+
+/* ---------- units ---------- */
+.units { background: var(--od); color: var(--od-ink); padding-block: 64px; }
+.units-in { display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px 56px; }
+.units-in > div:first-child p { margin-top: 16px; max-width: 44ch; font-size: var(--s-lead); }
+.packs { display: grid; gap: 12px; }
+.packs div { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 16px 20px; background: var(--od-deep); border-radius: var(--radius); }
+.packs dt { font-weight: 700; font-size: var(--s-lead); }
+.packs dd { grid-column: 1; color: var(--od-muted); }
+.pack-price { grid-column: 2 !important; grid-row: 1 / 3; align-self: center; font-family: var(--display); font-weight: 800; font-size: 2rem; color: var(--gold) !important; font-variant-numeric: tabular-nums; }
+.contact { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 8px; }
+.copyable { user-select: all; }
+
+/* ---------- footer ---------- */
+.foot { background: var(--od-deep); color: var(--od-ink); padding-block: 56px 28px; }
+.foot-in { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
+.foot-brand b { font-family: var(--display); font-weight: 800; font-size: 2rem; letter-spacing: 0.04em; }
+.foot-brand p, .foot p { margin-top: 8px; color: var(--od-muted); }
+.foot h2 { font-family: var(--text); font-size: var(--s-body); font-weight: 700; }
+.foot ul { margin-top: 10px; display: grid; gap: 6px; }
+.foot a { color: var(--od-muted); text-decoration: none; }
+.foot a:hover { color: var(--od-ink); text-decoration: underline; }
+.foot-legal { margin-top: 40px; font-size: var(--s-small); color: var(--od-muted); }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; z-index: 20; max-width: calc(100% - 32px); padding: 14px 20px; border-radius: var(--radius); background: var(--ink); color: var(--paper); font-weight: 600; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .body-list { grid-template-columns: repeat(4, 1fr); }
+  .promises { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .top-in { grid-template-columns: auto 1fr auto; gap: 8px; }
+  .menu-btn { display: block; }
+  .brand { justify-self: start; }
+  .brand span { font-size: 1.5rem; }
+  .search { grid-column: 1 / -1; grid-row: 2; max-width: none; }
+  .cats { display: none; }
+  .cats.open { display: block; }
+  .cats-in { flex-direction: column; padding-block: 8px; }
+  .cats-b2b { margin-left: 0; }
+  .hero-in { grid-template-columns: 1fr; padding-block: 40px 24px; }
+  .hero-art { max-width: 420px; width: 100%; margin-inline: auto; }
+  .hero-actions .btn { flex: 1 1 auto; }
+  .promises { grid-template-columns: 1fr 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .cat { min-height: 140px; }
+  .body-list { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .body-list a { font-size: 0.8125rem; padding: 8px 2px; }
+  .body-list svg { width: 48px; height: 52px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(-1 * var(--gutter-r)); padding-right: var(--gutter-r); }
+  .chips button { flex: none; }
+  .block-head { display: grid; min-width: 0; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .protocol, .units-in { grid-template-columns: 1fr; }
+  .protocol { padding-block: 48px; }
+  .protocol-art { padding: 16px; }
+  .foot-in { grid-template-columns: 1fr 1fr; }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+  .promises { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+</style>
+
+<div class="notice"><div class="wrap notice-in"><p>Diseño gratis en todos los pedidos</p><p class="only-wide">Presupuesto en 24 h laborables</p><p class="only-wide">Envíos a toda España</p></div></div>
+
+<header class="top">
+  <div class="wrap top-in">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="cats" aria-label="Abrir el menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="brand" href="#" aria-label="Markaje, inicio"><svg class="brand-mark" aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Parche bordado: MARKAJE, ">
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#2c3017"/>
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#4b5228" transform="translate(200 220) scale(0.965) translate(-200 -220)"/>
+  <path d="M200 42 L350 77 L350 230 C350 318 280 375 200 403 C120 375 50 318 50 230 L50 77 Z" fill="none" stroke="#e6dcae" stroke-width="5" stroke-dasharray="9 5"/>
+  <polygon points="200.0,150.0 209.9,176.4 238.0,177.6 216.0,195.2 223.5,222.4 200.0,206.8 176.5,222.4 184.0,195.2 162.0,177.6 190.1,176.4" fill="#e6dcae"/>
+  <ellipse cx="183.4" cy="241.8" rx="11" ry="5" transform="rotate(15 183.4 241.8)" fill="#e6dcae"/><ellipse cx="167.0" cy="234.9" rx="11" ry="5" transform="rotate(31 167.0 234.9)" fill="#e6dcae"/><ellipse cx="153.2" cy="223.6" rx="11" ry="5" transform="rotate(47 153.2 223.6)" fill="#e6dcae"/><ellipse cx="143.0" cy="209.1" rx="11" ry="5" transform="rotate(63 143.0 209.1)" fill="#e6dcae"/><ellipse cx="137.2" cy="192.2" rx="11" ry="5" transform="rotate(79 137.2 192.2)" fill="#e6dcae"/><ellipse cx="136.2" cy="174.4" rx="11" ry="5" transform="rotate(95 136.2 174.4)" fill="#e6dcae"/><ellipse cx="140.3" cy="157.1" rx="11" ry="5" transform="rotate(111 140.3 157.1)" fill="#e6dcae"/><ellipse cx="216.6" cy="241.8" rx="11" ry="5" transform="rotate(165 216.6 241.8)" fill="#e6dcae"/><ellipse cx="233.0" cy="234.9" rx="11" ry="5" transform="rotate(149 233.0 234.9)" fill="#e6dcae"/><ellipse cx="246.8" cy="223.6" rx="11" ry="5" transform="rotate(133 246.8 223.6)" fill="#e6dcae"/><ellipse cx="257.0" cy="209.1" rx="11" ry="5" transform="rotate(117 257.0 209.1)" fill="#e6dcae"/><ellipse cx="262.8" cy="192.2" rx="11" ry="5" transform="rotate(101 262.8 192.2)" fill="#e6dcae"/><ellipse cx="263.8" cy="174.4" rx="11" ry="5" transform="rotate(85 263.8 174.4)" fill="#e6dcae"/><ellipse cx="259.7" cy="157.1" rx="11" ry="5" transform="rotate(69 259.7 157.1)" fill="#e6dcae"/>
+  <text x="200" y="300" text-anchor="middle" fill="#e6dcae" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="38" letter-spacing="1">MARKAJE</text>
+  <text x="200" y="338" text-anchor="middle" fill="#e6dcae" font-family="Archivo, sans-serif" font-weight="500" font-size="24"></text>
+</svg><span>MARKAJE</span></a>
+    <label class="search"><span class="sr-only">Buscar productos</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" placeholder="Busca parches, tazas, metopas…" autocomplete="off"></label>
+    <nav class="tools" aria-label="Tu cuenta">
+      <a href="#cuenta"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span class="only-wide">Mi cuenta</span></a>
+      <a href="#cesta" class="bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="only-wide">Cesta</span><b id="count" aria-live="polite">0</b></a>
+    </nav>
+  </div>
+  <nav class="cats" id="cats" aria-label="Categorías">
+    <ul class="wrap cats-in">
+      <li><a href="#catalogo" data-filter="textil">Textil</a></li>
+      <li><a href="#catalogo" data-filter="tazas">Tazas</a></li>
+      <li><a href="#catalogo" data-filter="parches">Parches</a></li>
+      <li><a href="#catalogo" data-filter="merch">Merchandising</a></li>
+      <li><a href="#catalogo" data-filter="metopas">Metopas</a></li>
+      <li><a href="#catalogo" data-filter="regalos">Regalos protocolarios</a></li>
+      <li class="cats-b2b"><a href="#unidades">Pedidos para unidades</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-text">
+        <h1>Personalización para tu unidad</h1>
+        <p>Textil, tazas, parches, merchandising, metopas y regalos protocolarios para el Ejército, la Guardia Civil y la Policía. Nos mandas el escudo o la idea y te enviamos el boceto gratis.</p>
+        <div class="hero-actions">
+          <a class="btn gold" href="#catalogo">Ver el catálogo</a>
+          <a class="btn line" href="#unidades">Pedir presupuesto</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art art-patch"><svg viewBox="0 0 400 440" role="img" aria-label="Parche bordado: II BATALLÓN ZARAGOZA, Siempre adelante">
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#5c4529"/>
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#8a6a42" transform="translate(200 220) scale(0.965) translate(-200 -220)"/>
+  <path d="M200 42 L350 77 L350 230 C350 318 280 375 200 403 C120 375 50 318 50 230 L50 77 Z" fill="none" stroke="#17140d" stroke-width="5" stroke-dasharray="9 5"/>
+  <polygon points="200.0,150.0 209.9,176.4 238.0,177.6 216.0,195.2 223.5,222.4 200.0,206.8 176.5,222.4 184.0,195.2 162.0,177.6 190.1,176.4" fill="#17140d"/>
+  <ellipse cx="183.4" cy="241.8" rx="11" ry="5" transform="rotate(15 183.4 241.8)" fill="#17140d"/><ellipse cx="167.0" cy="234.9" rx="11" ry="5" transform="rotate(31 167.0 234.9)" fill="#17140d"/><ellipse cx="153.2" cy="223.6" rx="11" ry="5" transform="rotate(47 153.2 223.6)" fill="#17140d"/><ellipse cx="143.0" cy="209.1" rx="11" ry="5" transform="rotate(63 143.0 209.1)" fill="#17140d"/><ellipse cx="137.2" cy="192.2" rx="11" ry="5" transform="rotate(79 137.2 192.2)" fill="#17140d"/><ellipse cx="136.2" cy="174.4" rx="11" ry="5" transform="rotate(95 136.2 174.4)" fill="#17140d"/><ellipse cx="140.3" cy="157.1" rx="11" ry="5" transform="rotate(111 140.3 157.1)" fill="#17140d"/><ellipse cx="216.6" cy="241.8" rx="11" ry="5" transform="rotate(165 216.6 241.8)" fill="#17140d"/><ellipse cx="233.0" cy="234.9" rx="11" ry="5" transform="rotate(149 233.0 234.9)" fill="#17140d"/><ellipse cx="246.8" cy="223.6" rx="11" ry="5" transform="rotate(133 246.8 223.6)" fill="#17140d"/><ellipse cx="257.0" cy="209.1" rx="11" ry="5" transform="rotate(117 257.0 209.1)" fill="#17140d"/><ellipse cx="262.8" cy="192.2" rx="11" ry="5" transform="rotate(101 262.8 192.2)" fill="#17140d"/><ellipse cx="263.8" cy="174.4" rx="11" ry="5" transform="rotate(85 263.8 174.4)" fill="#17140d"/><ellipse cx="259.7" cy="157.1" rx="11" ry="5" transform="rotate(69 259.7 157.1)" fill="#17140d"/>
+  <text x="200" y="300" text-anchor="middle" fill="#17140d" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="21" letter-spacing="1">II BATALLÓN ZARAGOZA</text>
+  <text x="200" y="338" text-anchor="middle" fill="#17140d" font-family="Archivo, sans-serif" font-weight="500" font-size="24">Siempre adelante</text>
+</svg></div>
+        <div class="art art-coin"><svg viewBox="0 0 400 440" role="img" aria-label="Moneda de unidad: PROMOCIÓN 2026">
+  <defs><path id="arcT" d="M70 220 A130 130 0 0 1 330 220"/><path id="arcB" d="M62 220 A138 138 0 0 0 338 220"/></defs>
+  <circle cx="200" cy="220" r="185" fill="#6f5a2c"/>
+  <circle cx="200" cy="220" r="176" fill="#c9a24e"/>
+  <circle cx="200" cy="220" r="104" fill="#4b5228"/>
+  <circle cx="200" cy="220" r="104" fill="none" stroke="#7a6230" stroke-width="6"/>
+  <polygon points="200.0,158.0 213.3,193.7 251.4,195.3 221.6,219.0 231.7,255.7 200.0,234.7 168.3,255.7 178.4,219.0 148.6,195.3 186.7,193.7" fill="#e9c96e"/>
+  <text font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="30" fill="#3d3015" letter-spacing="2"><textPath href="#arcT" startOffset="50%" text-anchor="middle">PROMOCIÓN 2026</textPath></text>
+  <text font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="22" fill="#3d3015" letter-spacing="2"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">HONOR Y SERVICIO</textPath></text>
+</svg></div>
+        <div class="art art-mug"><svg viewBox="0 0 400 440" role="img" aria-label="Taza personalizada: CÍA. DE ZAPADORES">
+  <path d="M300 150 C370 150 370 290 300 290" fill="none" stroke="#d9d6cc" stroke-width="26"/>
+  <rect x="70" y="100" width="240" height="260" rx="18" fill="#f4f2ec"/>
+  <rect x="70" y="100" width="240" height="22" rx="10" fill="#e2dfd5"/>
+  <circle cx="190" cy="200" r="52" fill="#4b5228"/>
+  <polygon points="190.0,170.0 197.4,189.8 218.5,190.7 202.0,203.9 207.6,224.3 190.0,212.6 172.4,224.3 178.0,203.9 161.5,190.7 182.6,189.8" fill="#e6dcae"/>
+  <ellipse cx="172.9" cy="245.8" rx="11" ry="5" transform="rotate(15 172.9 245.8)" fill="#4b5228"/><ellipse cx="156.0" cy="238.6" rx="11" ry="5" transform="rotate(31 156.0 238.6)" fill="#4b5228"/><ellipse cx="141.7" cy="227.0" rx="11" ry="5" transform="rotate(47 141.7 227.0)" fill="#4b5228"/><ellipse cx="131.2" cy="212.0" rx="11" ry="5" transform="rotate(63 131.2 212.0)" fill="#4b5228"/><ellipse cx="125.2" cy="194.6" rx="11" ry="5" transform="rotate(79 125.2 194.6)" fill="#4b5228"/><ellipse cx="124.3" cy="176.2" rx="11" ry="5" transform="rotate(95 124.3 176.2)" fill="#4b5228"/><ellipse cx="128.4" cy="158.3" rx="11" ry="5" transform="rotate(111 128.4 158.3)" fill="#4b5228"/><ellipse cx="207.1" cy="245.8" rx="11" ry="5" transform="rotate(165 207.1 245.8)" fill="#4b5228"/><ellipse cx="224.0" cy="238.6" rx="11" ry="5" transform="rotate(149 224.0 238.6)" fill="#4b5228"/><ellipse cx="238.3" cy="227.0" rx="11" ry="5" transform="rotate(133 238.3 227.0)" fill="#4b5228"/><ellipse cx="248.8" cy="212.0" rx="11" ry="5" transform="rotate(117 248.8 212.0)" fill="#4b5228"/><ellipse cx="254.8" cy="194.6" rx="11" ry="5" transform="rotate(101 254.8 194.6)" fill="#4b5228"/><ellipse cx="255.7" cy="176.2" rx="11" ry="5" transform="rotate(85 255.7 176.2)" fill="#4b5228"/><ellipse cx="251.6" cy="158.3" rx="11" ry="5" transform="rotate(69 251.6 158.3)" fill="#4b5228"/>
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="18" fill="#4b5228">CÍA. DE ZAPADORES</text>
+  <text x="190" y="328" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="15" fill="#2c3017">Siempre adelante</text>
+</svg></div>
+      </div>
+    </div>
+  </section>
+
+  <ul class="wrap promises" aria-label="Ventajas">
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16Z"/></svg><span><b>Boceto gratis</b> y cambios sin límite</span></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span><b>Desde 1 unidad</b> en metopas y grabados</span></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6Z"/><path d="M14 3v5h5"/></svg><span><b>Factura</b> a nombre de la unidad o asociación</span></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3ZM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span><b>Envío</b> a toda España, Ceuta y Melilla</span></li>
+  </ul>
+
+  <section class="wrap block" aria-labelledby="h-cats">
+    <h2 id="h-cats">Compra por categoría</h2>
+    <ul class="cat-grid">
+      <li><a class="cat" href="#catalogo" data-filter="textil" style="--tile:var(--t-stone)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Camiseta serigrafiada: II BATALLÓN ZARAGOZA">
+  <path d="M140 40 L80 64 L22 140 L80 178 L104 150 L104 410 H296 V150 L320 178 L378 140 L320 64 L260 40 C250 70 228 84 200 84 C172 84 150 70 140 40 Z" fill="#1b1c19"/>
+  <path d="M140 40 C150 70 172 84 200 84 C228 84 250 70 260 40 L248 36 C238 60 222 70 200 70 C178 70 162 60 152 36 Z" fill="#0b0b0a"/>
+  <polygon points="200.0,136.0 208.4,158.4 232.3,159.5 213.6,174.4 220.0,197.5 200.0,184.3 180.0,197.5 186.4,174.4 167.7,159.5 191.6,158.4" fill="#d2b98f"/>
+  <text x="200" y="250" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="14" fill="#d2b98f">II BATALLÓN ZARAGOZA</text>
+  <text x="200" y="280" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="17" fill="#d2b98f">Siempre adelante</text>
+</svg></span>
+        <span class="cat-text"><b>Textil</b><span>Camisetas, sudaderas, polos y gorras bordadas o serigrafiadas.</span><em>Desde 8,90 €</em></span>
+      </a></li>
+      <li><a class="cat" href="#catalogo" data-filter="tazas" style="--tile:var(--t-od)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Taza personalizada: II BATALLÓN ZARAGOZA">
+  <path d="M300 150 C370 150 370 290 300 290" fill="none" stroke="#d9d6cc" stroke-width="26"/>
+  <rect x="70" y="100" width="240" height="260" rx="18" fill="#f4f2ec"/>
+  <rect x="70" y="100" width="240" height="22" rx="10" fill="#e2dfd5"/>
+  <circle cx="190" cy="200" r="52" fill="#4b5228"/>
+  <polygon points="190.0,170.0 197.4,189.8 218.5,190.7 202.0,203.9 207.6,224.3 190.0,212.6 172.4,224.3 178.0,203.9 161.5,190.7 182.6,189.8" fill="#e6dcae"/>
+  <ellipse cx="172.9" cy="245.8" rx="11" ry="5" transform="rotate(15 172.9 245.8)" fill="#4b5228"/><ellipse cx="156.0" cy="238.6" rx="11" ry="5" transform="rotate(31 156.0 238.6)" fill="#4b5228"/><ellipse cx="141.7" cy="227.0" rx="11" ry="5" transform="rotate(47 141.7 227.0)" fill="#4b5228"/><ellipse cx="131.2" cy="212.0" rx="11" ry="5" transform="rotate(63 131.2 212.0)" fill="#4b5228"/><ellipse cx="125.2" cy="194.6" rx="11" ry="5" transform="rotate(79 125.2 194.6)" fill="#4b5228"/><ellipse cx="124.3" cy="176.2" rx="11" ry="5" transform="rotate(95 124.3 176.2)" fill="#4b5228"/><ellipse cx="128.4" cy="158.3" rx="11" ry="5" transform="rotate(111 128.4 158.3)" fill="#4b5228"/><ellipse cx="207.1" cy="245.8" rx="11" ry="5" transform="rotate(165 207.1 245.8)" fill="#4b5228"/><ellipse cx="224.0" cy="238.6" rx="11" ry="5" transform="rotate(149 224.0 238.6)" fill="#4b5228"/><ellipse cx="238.3" cy="227.0" rx="11" ry="5" transform="rotate(133 238.3 227.0)" fill="#4b5228"/><ellipse cx="248.8" cy="212.0" rx="11" ry="5" transform="rotate(117 248.8 212.0)" fill="#4b5228"/><ellipse cx="254.8" cy="194.6" rx="11" ry="5" transform="rotate(101 254.8 194.6)" fill="#4b5228"/><ellipse cx="255.7" cy="176.2" rx="11" ry="5" transform="rotate(85 255.7 176.2)" fill="#4b5228"/><ellipse cx="251.6" cy="158.3" rx="11" ry="5" transform="rotate(69 251.6 158.3)" fill="#4b5228"/>
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="16" fill="#4b5228">II BATALLÓN ZARAGOZA</text>
+  <text x="190" y="328" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="15" fill="#2c3017">Siempre adelante</text>
+</svg></span>
+        <span class="cat-text"><b>Tazas</b><span>Cerámica, esmaltadas de campaña y térmicas con tu escudo.</span><em>Desde 6,50 €</em></span>
+      </a></li>
+      <li><a class="cat" href="#catalogo" data-filter="parches" style="--tile:var(--t-coyote)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Parche bordado: II BATALLÓN ZARAGOZA, Siempre adelante">
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#5c4529"/>
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#8a6a42" transform="translate(200 220) scale(0.965) translate(-200 -220)"/>
+  <path d="M200 42 L350 77 L350 230 C350 318 280 375 200 403 C120 375 50 318 50 230 L50 77 Z" fill="none" stroke="#17140d" stroke-width="5" stroke-dasharray="9 5"/>
+  <polygon points="200.0,150.0 209.9,176.4 238.0,177.6 216.0,195.2 223.5,222.4 200.0,206.8 176.5,222.4 184.0,195.2 162.0,177.6 190.1,176.4" fill="#17140d"/>
+  <ellipse cx="183.4" cy="241.8" rx="11" ry="5" transform="rotate(15 183.4 241.8)" fill="#17140d"/><ellipse cx="167.0" cy="234.9" rx="11" ry="5" transform="rotate(31 167.0 234.9)" fill="#17140d"/><ellipse cx="153.2" cy="223.6" rx="11" ry="5" transform="rotate(47 153.2 223.6)" fill="#17140d"/><ellipse cx="143.0" cy="209.1" rx="11" ry="5" transform="rotate(63 143.0 209.1)" fill="#17140d"/><ellipse cx="137.2" cy="192.2" rx="11" ry="5" transform="rotate(79 137.2 192.2)" fill="#17140d"/><ellipse cx="136.2" cy="174.4" rx="11" ry="5" transform="rotate(95 136.2 174.4)" fill="#17140d"/><ellipse cx="140.3" cy="157.1" rx="11" ry="5" transform="rotate(111 140.3 157.1)" fill="#17140d"/><ellipse cx="216.6" cy="241.8" rx="11" ry="5" transform="rotate(165 216.6 241.8)" fill="#17140d"/><ellipse cx="233.0" cy="234.9" rx="11" ry="5" transform="rotate(149 233.0 234.9)" fill="#17140d"/><ellipse cx="246.8" cy="223.6" rx="11" ry="5" transform="rotate(133 246.8 223.6)" fill="#17140d"/><ellipse cx="257.0" cy="209.1" rx="11" ry="5" transform="rotate(117 257.0 209.1)" fill="#17140d"/><ellipse cx="262.8" cy="192.2" rx="11" ry="5" transform="rotate(101 262.8 192.2)" fill="#17140d"/><ellipse cx="263.8" cy="174.4" rx="11" ry="5" transform="rotate(85 263.8 174.4)" fill="#17140d"/><ellipse cx="259.7" cy="157.1" rx="11" ry="5" transform="rotate(69 259.7 157.1)" fill="#17140d"/>
+  <text x="200" y="300" text-anchor="middle" fill="#17140d" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="21" letter-spacing="1">II BATALLÓN ZARAGOZA</text>
+  <text x="200" y="338" text-anchor="middle" fill="#17140d" font-family="Archivo, sans-serif" font-weight="500" font-size="24">Siempre adelante</text>
+</svg></span>
+        <span class="cat-text"><b>Parches</b><span>Bordados, PVC 3D y nombres de pecho, con velcro o para coser.</span><em>Desde 2,90 €</em></span>
+      </a></li>
+      <li><a class="cat" href="#catalogo" data-filter="merch" style="--tile:var(--t-blue)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Llavero de PVC: PROMOCIÓN 2026">
+  <circle cx="200" cy="84" r="46" fill="none" stroke="#9da09a" stroke-width="10"/>
+  <rect x="190" y="126" width="20" height="44" rx="8" fill="#8e8e86"/>
+  <circle cx="200" cy="280" r="118" fill="#111a2d"/>
+  <circle cx="200" cy="280" r="104" fill="#1e2c48"/>
+  <circle cx="200" cy="280" r="88" fill="none" stroke="#ece5d2" stroke-width="5"/>
+  <polygon points="200.0,222.0 209.9,248.4 238.0,249.6 216.0,267.2 223.5,294.4 200.0,278.8 176.5,294.4 184.0,267.2 162.0,249.6 190.1,248.4" fill="#ece5d2"/>
+  <text x="200" y="336" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="14" fill="#ece5d2">PROMOCIÓN 2026</text>
+</svg></span>
+        <span class="cat-text"><b>Merchandising</b><span>Monedas, llaveros, pines, banderines y pulseras.</span><em>Desde 2,20 €</em></span>
+      </a></li>
+      <li><a class="cat" href="#catalogo" data-filter="metopas" style="--tile:var(--t-stone)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Metopa de madera con placa grabada: II Batallón Zaragoza">
+  <path d="M60 30 H340 V300 C340 360 280 400 200 420 C120 400 60 360 60 300 Z" fill="#5a3a1e"/>
+  <path d="M76 46 H324 V296 C324 348 272 382 200 400 C128 382 76 348 76 296 Z" fill="#7b5230"/>
+  <circle cx="200" cy="150" r="74" fill="#c9a24e"/>
+  <circle cx="200" cy="150" r="64" fill="#b58f3e"/>
+  <polygon points="200.0,104.0 211.4,134.4 243.7,135.8 218.4,156.0 227.0,187.2 200.0,169.3 173.0,187.2 181.6,156.0 156.3,135.8 188.6,134.4" fill="#ecd18a"/>
+  <rect x="96" y="262" width="208" height="76" fill="#d9c08a"/>
+  <text x="200" y="295" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="15" fill="#2b2112">II Batallón Zaragoza</text>
+  <text x="200" y="322" text-anchor="middle" font-family="Archivo, sans-serif" font-size="15" fill="#2b2112">Siempre adelante</text>
+</svg></span>
+        <span class="cat-text"><b>Metopas</b><span>Madera con escudo en relieve y placa con dedicatoria.</span><em>Desde 45 €</em></span>
+      </a></li>
+      <li><a class="cat" href="#catalogo" data-filter="regalos" style="--tile:var(--t-stone)">
+        <span class="cat-img"><svg viewBox="0 0 400 440" role="img" aria-label="Moneda en estuche de regalo: ACTO DE RELEVO">
+  <path d="M60 90 H340 V170 H60 Z" fill="#1f2a44"/>
+  <path d="M72 102 H328 V170 H72 Z" fill="#2c3a5c"/>
+  <path d="M50 170 H350 V370 H50 Z" fill="#1f2a44"/>
+  <path d="M66 186 H334 V354 H66 Z" fill="#141c30"/>
+  <circle cx="200" cy="270" r="74" fill="#6f5a2c"/>
+  <circle cx="200" cy="270" r="68" fill="#c9a24e"/>
+  <circle cx="200" cy="270" r="42" fill="#4b5228"/>
+  <polygon points="200.0,240.0 206.9,258.5 226.6,259.3 211.2,271.6 216.5,290.7 200.0,279.8 183.5,290.7 188.8,271.6 173.4,259.3 193.1,258.5" fill="#e9c96e"/>
+  <text x="200" y="138" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="20" fill="#c9a24e" letter-spacing="2">ACTO DE RELEVO</text>
+</svg></span>
+        <span class="cat-text"><b>Regalos protocolarios</b><span>Monedas en estuche, placas y metopas para actos oficiales.</span><em>Desde 14,90 €</em></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <section class="bodies" aria-labelledby="h-bodies">
+    <div class="wrap">
+      <h2 id="h-bodies">Compra por cuerpo</h2>
+      <ul class="body-list">
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#4b5228"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Ejército de Tierra</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1e2c48"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Armada</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1e2c48"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Ejército del Aire y del Espacio</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#4b5228"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Guardia Civil</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1e2c48"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Policía Nacional</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1e2c48"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Policía Local</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#8a6a42"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>UME</span></a></li>
+        <li><a href="#catalogo"><svg aria-hidden="true" viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1b1c19"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg><span>Academias</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap block" id="catalogo" aria-labelledby="h-cat">
+    <div class="block-head">
+      <h2 id="h-cat">Lo más pedido</h2>
+      <div class="chips" role="group" aria-label="Filtrar por categoría">
+        <button type="button" data-chip="all" aria-pressed="true">Todo</button>
+        <button type="button" data-chip="textil" aria-pressed="false">Textil</button>
+        <button type="button" data-chip="tazas" aria-pressed="false">Tazas</button>
+        <button type="button" data-chip="parches" aria-pressed="false">Parches</button>
+        <button type="button" data-chip="merch" aria-pressed="false">Merchandising</button>
+        <button type="button" data-chip="metopas" aria-pressed="false">Metopas</button>
+        <button type="button" data-chip="regalos" aria-pressed="false">Regalos protocolarios</button>
+      </div>
+    </div>
+    <ul class="grid" id="grid">
+        <li class="product" data-cat="parches" data-name="parche bordado con velcro">
+          <a class="product-img" href="#producto" style="--tile:var(--t-od)"><svg viewBox="0 0 400 440" role="img" aria-label="Parche bordado: II BATALLÓN ZARAGOZA, Siempre adelante">
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#2c3017"/>
+  <path d="M200 20 L370 60 L370 230 C370 330 290 395 200 425 C110 395 30 330 30 230 L30 60 Z" fill="#4b5228" transform="translate(200 220) scale(0.965) translate(-200 -220)"/>
+  <path d="M200 42 L350 77 L350 230 C350 318 280 375 200 403 C120 375 50 318 50 230 L50 77 Z" fill="none" stroke="#e6dcae" stroke-width="5" stroke-dasharray="9 5"/>
+  <polygon points="200.0,150.0 209.9,176.4 238.0,177.6 216.0,195.2 223.5,222.4 200.0,206.8 176.5,222.4 184.0,195.2 162.0,177.6 190.1,176.4" fill="#e6dcae"/>
+  <ellipse cx="183.4" cy="241.8" rx="11" ry="5" transform="rotate(15 183.4 241.8)" fill="#e6dcae"/><ellipse cx="167.0" cy="234.9" rx="11" ry="5" transform="rotate(31 167.0 234.9)" fill="#e6dcae"/><ellipse cx="153.2" cy="223.6" rx="11" ry="5" transform="rotate(47 153.2 223.6)" fill="#e6dcae"/><ellipse cx="143.0" cy="209.1" rx="11" ry="5" transform="rotate(63 143.0 209.1)" fill="#e6dcae"/><ellipse cx="137.2" cy="192.2" rx="11" ry="5" transform="rotate(79 137.2 192.2)" fill="#e6dcae"/><ellipse cx="136.2" cy="174.4" rx="11" ry="5" transform="rotate(95 136.2 174.4)" fill="#e6dcae"/><ellipse cx="140.3" cy="157.1" rx="11" ry="5" transform="rotate(111 140.3 157.1)" fill="#e6dcae"/><ellipse cx="216.6" cy="241.8" rx="11" ry="5" transform="rotate(165 216.6 241.8)" fill="#e6dcae"/><ellipse cx="233.0" cy="234.9" rx="11" ry="5" transform="rotate(149 233.0 234.9)" fill="#e6dcae"/><ellipse cx="246.8" cy="223.6" rx="11" ry="5" transform="rotate(133 246.8 223.6)" fill="#e6dcae"/><ellipse cx="257.0" cy="209.1" rx="11" ry="5" transform="rotate(117 257.0 209.1)" fill="#e6dcae"/><ellipse cx="262.8" cy="192.2" rx="11" ry="5" transform="rotate(101 262.8 192.2)" fill="#e6dcae"/><ellipse cx="263.8" cy="174.4" rx="11" ry="5" transform="rotate(85 263.8 174.4)" fill="#e6dcae"/><ellipse cx="259.7" cy="157.1" rx="11" ry="5" transform="rotate(69 259.7 157.1)" fill="#e6dcae"/>
+  <text x="200" y="300" text-anchor="middle" fill="#e6dcae" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="21" letter-spacing="1">II BATALLÓN ZARAGOZA</text>
+  <text x="200" y="338" text-anchor="middle" fill="#e6dcae" font-family="Archivo, sans-serif" font-weight="500" font-size="24">Siempre adelante</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Parche bordado con velcro</a></h3>
+            <p class="product-meta">Mín. 50 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 3,90 €</p>
+          </div>
+          <button class="add" type="button" data-name="Parche bordado con velcro">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="textil" data-name="camiseta técnica personalizada">
+          <a class="product-img" href="#producto" style="--tile:var(--t-coyote)"><svg viewBox="0 0 400 440" role="img" aria-label="Camiseta serigrafiada: II BATALLÓN ZARAGOZA">
+  <path d="M140 40 L80 64 L22 140 L80 178 L104 150 L104 410 H296 V150 L320 178 L378 140 L320 64 L260 40 C250 70 228 84 200 84 C172 84 150 70 140 40 Z" fill="#8a6a42"/>
+  <path d="M140 40 C150 70 172 84 200 84 C228 84 250 70 260 40 L248 36 C238 60 222 70 200 70 C178 70 162 60 152 36 Z" fill="#5c4529"/>
+  <polygon points="200.0,136.0 208.4,158.4 232.3,159.5 213.6,174.4 220.0,197.5 200.0,184.3 180.0,197.5 186.4,174.4 167.7,159.5 191.6,158.4" fill="#17140d"/>
+  <text x="200" y="250" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="14" fill="#17140d">II BATALLÓN ZARAGOZA</text>
+  <text x="200" y="280" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="17" fill="#17140d">Siempre adelante</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Camiseta técnica personalizada</a></h3>
+            <p class="product-meta">Mín. 20 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 9,50 €</p>
+          </div>
+          <button class="add" type="button" data-name="Camiseta técnica personalizada">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="tazas" data-name="taza de cerámica 330 ml">
+          <a class="product-img" href="#producto" style="--tile:var(--t-blue)"><svg viewBox="0 0 400 440" role="img" aria-label="Taza personalizada: COMISARÍA CENTRO">
+  <path d="M300 150 C370 150 370 290 300 290" fill="none" stroke="#d9d6cc" stroke-width="26"/>
+  <rect x="70" y="100" width="240" height="260" rx="18" fill="#f4f2ec"/>
+  <rect x="70" y="100" width="240" height="22" rx="10" fill="#e2dfd5"/>
+  <circle cx="190" cy="200" r="52" fill="#1e2c48"/>
+  <polygon points="190.0,170.0 197.4,189.8 218.5,190.7 202.0,203.9 207.6,224.3 190.0,212.6 172.4,224.3 178.0,203.9 161.5,190.7 182.6,189.8" fill="#ece5d2"/>
+  <ellipse cx="172.9" cy="245.8" rx="11" ry="5" transform="rotate(15 172.9 245.8)" fill="#1e2c48"/><ellipse cx="156.0" cy="238.6" rx="11" ry="5" transform="rotate(31 156.0 238.6)" fill="#1e2c48"/><ellipse cx="141.7" cy="227.0" rx="11" ry="5" transform="rotate(47 141.7 227.0)" fill="#1e2c48"/><ellipse cx="131.2" cy="212.0" rx="11" ry="5" transform="rotate(63 131.2 212.0)" fill="#1e2c48"/><ellipse cx="125.2" cy="194.6" rx="11" ry="5" transform="rotate(79 125.2 194.6)" fill="#1e2c48"/><ellipse cx="124.3" cy="176.2" rx="11" ry="5" transform="rotate(95 124.3 176.2)" fill="#1e2c48"/><ellipse cx="128.4" cy="158.3" rx="11" ry="5" transform="rotate(111 128.4 158.3)" fill="#1e2c48"/><ellipse cx="207.1" cy="245.8" rx="11" ry="5" transform="rotate(165 207.1 245.8)" fill="#1e2c48"/><ellipse cx="224.0" cy="238.6" rx="11" ry="5" transform="rotate(149 224.0 238.6)" fill="#1e2c48"/><ellipse cx="238.3" cy="227.0" rx="11" ry="5" transform="rotate(133 238.3 227.0)" fill="#1e2c48"/><ellipse cx="248.8" cy="212.0" rx="11" ry="5" transform="rotate(117 248.8 212.0)" fill="#1e2c48"/><ellipse cx="254.8" cy="194.6" rx="11" ry="5" transform="rotate(101 254.8 194.6)" fill="#1e2c48"/><ellipse cx="255.7" cy="176.2" rx="11" ry="5" transform="rotate(85 255.7 176.2)" fill="#1e2c48"/><ellipse cx="251.6" cy="158.3" rx="11" ry="5" transform="rotate(69 251.6 158.3)" fill="#1e2c48"/>
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="20" fill="#1e2c48">COMISARÍA CENTRO</text>
+  <text x="190" y="328" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="15" fill="#111a2d">Siempre adelante</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Taza de cerámica 330 ml</a></h3>
+            <p class="product-meta">Mín. 12 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 6,50 €</p>
+          </div>
+          <button class="add" type="button" data-name="Taza de cerámica 330 ml">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="merch" data-name="moneda de unidad 40 mm">
+          <a class="product-img" href="#producto" style="--tile:var(--t-od)"><svg viewBox="0 0 400 440" role="img" aria-label="Moneda de unidad: II BATALLÓN ZARAGOZA">
+  <defs><path id="arcT" d="M70 220 A130 130 0 0 1 330 220"/><path id="arcB" d="M62 220 A138 138 0 0 0 338 220"/></defs>
+  <circle cx="200" cy="220" r="185" fill="#6f5a2c"/>
+  <circle cx="200" cy="220" r="176" fill="#c9a24e"/>
+  <circle cx="200" cy="220" r="104" fill="#4b5228"/>
+  <circle cx="200" cy="220" r="104" fill="none" stroke="#7a6230" stroke-width="6"/>
+  <polygon points="200.0,158.0 213.3,193.7 251.4,195.3 221.6,219.0 231.7,255.7 200.0,234.7 168.3,255.7 178.4,219.0 148.6,195.3 186.7,193.7" fill="#e9c96e"/>
+  <text font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="30" fill="#3d3015" letter-spacing="2"><textPath href="#arcT" startOffset="50%" text-anchor="middle">II BATALLÓN ZARAGOZA</textPath></text>
+  <text font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="22" fill="#3d3015" letter-spacing="2"><textPath href="#arcB" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">SIEMPRE ADELANTE</textPath></text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Moneda de unidad 40 mm</a></h3>
+            <p class="product-meta">Mín. 50 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 5,90 €</p>
+          </div>
+          <button class="add" type="button" data-name="Moneda de unidad 40 mm">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="metopas" data-name="metopa de madera con dedicatoria">
+          <a class="product-img" href="#producto" style="--tile:var(--t-stone)"><svg viewBox="0 0 400 440" role="img" aria-label="Metopa de madera con placa grabada: Sargento 1º R. Gil">
+  <path d="M60 30 H340 V300 C340 360 280 400 200 420 C120 400 60 360 60 300 Z" fill="#5a3a1e"/>
+  <path d="M76 46 H324 V296 C324 348 272 382 200 400 C128 382 76 348 76 296 Z" fill="#7b5230"/>
+  <circle cx="200" cy="150" r="74" fill="#c9a24e"/>
+  <circle cx="200" cy="150" r="64" fill="#b58f3e"/>
+  <polygon points="200.0,104.0 211.4,134.4 243.7,135.8 218.4,156.0 227.0,187.2 200.0,169.3 173.0,187.2 181.6,156.0 156.3,135.8 188.6,134.4" fill="#ecd18a"/>
+  <rect x="96" y="262" width="208" height="76" fill="#d9c08a"/>
+  <text x="200" y="295" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="17" fill="#2b2112">Sargento 1º R. Gil</text>
+  <text x="200" y="322" text-anchor="middle" font-family="Archivo, sans-serif" font-size="15" fill="#2b2112">Gracias por 30 años</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Metopa de madera con dedicatoria</a></h3>
+            <p class="product-meta">Desde 1 ud · personalizable</p>
+            <p class="product-price"><span>Desde</span> 45 €</p>
+          </div>
+          <button class="add" type="button" data-name="Metopa de madera con dedicatoria">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="textil" data-name="gorra bordada">
+          <a class="product-img" href="#producto" style="--tile:var(--t-od)"><svg viewBox="0 0 400 440" role="img" aria-label="Gorra bordada">
+  <path d="M60 280 C60 160 130 110 210 110 C290 110 340 170 340 280 Z" fill="#4b5228"/>
+  <path d="M210 110 C190 150 185 220 190 280" fill="none" stroke="#2c3017" stroke-width="4"/>
+  <path d="M60 280 H340 C350 280 352 296 340 300 C300 318 220 330 150 326 C100 322 60 312 50 300 C44 292 50 280 60 280 Z" fill="#2c3017"/>
+  <circle cx="210" cy="110" r="10" fill="#2c3017"/>
+  <path d="M110 170 H190 V250 H110 Z" fill="#2c3017"/>
+  <path d="M116 176 H184 V244 H116 Z" fill="none" stroke="#e6dcae" stroke-width="3" stroke-dasharray="6 4"/>
+  <polygon points="150.0,186.0 155.9,201.8 172.8,202.6 159.6,213.1 164.1,229.4 150.0,220.1 135.9,229.4 140.4,213.1 127.2,202.6 144.1,201.8" fill="#e6dcae"/>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Gorra bordada</a></h3>
+            <p class="product-meta">Mín. 20 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 8,90 €</p>
+          </div>
+          <button class="add" type="button" data-name="Gorra bordada">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="tazas" data-name="taza esmaltada de campaña">
+          <a class="product-img" href="#producto" style="--tile:var(--t-od)"><svg viewBox="0 0 400 440" role="img" aria-label="Taza esmaltada de campaña: CÍA. DE ZAPADORES">
+  <path d="M290 170 C350 170 350 280 290 280" fill="none" stroke="#2a2a26" stroke-width="20"/>
+  <path d="M80 130 H300 L290 350 C290 362 280 370 268 370 H112 C100 370 90 362 90 350 Z" fill="#4b5228"/>
+  <path d="M74 122 H306 V138 H74 Z" fill="#2a2a26"/>
+  <path d="M90 350 C90 362 100 370 112 370 H268 C280 370 290 362 290 350 L290 342 H90 Z" fill="#2a2a26"/>
+  <polygon points="190.0,179.0 198.9,202.8 224.2,203.9 204.4,219.7 211.2,244.1 190.0,230.1 168.8,244.1 175.6,219.7 155.8,203.9 181.1,202.8" fill="#e6dcae"/>
+  <text x="190" y="300" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="17" fill="#e6dcae">CÍA. DE ZAPADORES</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Taza esmaltada de campaña</a></h3>
+            <p class="product-meta">Mín. 12 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 9,90 €</p>
+          </div>
+          <button class="add" type="button" data-name="Taza esmaltada de campaña">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="regalos" data-name="moneda en estuche de regalo">
+          <a class="product-img" href="#producto" style="--tile:var(--t-stone)"><svg viewBox="0 0 400 440" role="img" aria-label="Moneda en estuche de regalo: JURA DE BANDERA">
+  <path d="M60 90 H340 V170 H60 Z" fill="#1f2a44"/>
+  <path d="M72 102 H328 V170 H72 Z" fill="#2c3a5c"/>
+  <path d="M50 170 H350 V370 H50 Z" fill="#1f2a44"/>
+  <path d="M66 186 H334 V354 H66 Z" fill="#141c30"/>
+  <circle cx="200" cy="270" r="74" fill="#6f5a2c"/>
+  <circle cx="200" cy="270" r="68" fill="#c9a24e"/>
+  <circle cx="200" cy="270" r="42" fill="#4b5228"/>
+  <polygon points="200.0,240.0 206.9,258.5 226.6,259.3 211.2,271.6 216.5,290.7 200.0,279.8 183.5,290.7 188.8,271.6 173.4,259.3 193.1,258.5" fill="#e9c96e"/>
+  <text x="200" y="138" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="20" fill="#c9a24e" letter-spacing="2">JURA DE BANDERA</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Moneda en estuche de regalo</a></h3>
+            <p class="product-meta">Desde 10 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 14,90 €</p>
+          </div>
+          <button class="add" type="button" data-name="Moneda en estuche de regalo">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="parches" data-name="parche de pvc 3d" hidden>
+          <a class="product-img" href="#producto" style="--tile:var(--t-stone)"><svg viewBox="0 0 400 440" role="img" aria-label="Parche bordado: GRUPO RURAL, Siempre alerta">
+  <path d="M200 25 A195 195 0 1 1 199.9 25 Z" fill="#0b0b0a"/>
+  <path d="M200 25 A195 195 0 1 1 199.9 25 Z" fill="#1b1c19" transform="translate(200 220) scale(0.965) translate(-200 -220)"/>
+  <path d="M200 45 A175 175 0 1 1 199.9 45 Z" fill="none" stroke="#d2b98f" stroke-width="5" stroke-dasharray="9 5"/>
+  <polygon points="200.0,150.0 209.9,176.4 238.0,177.6 216.0,195.2 223.5,222.4 200.0,206.8 176.5,222.4 184.0,195.2 162.0,177.6 190.1,176.4" fill="#d2b98f"/>
+  <ellipse cx="183.4" cy="241.8" rx="11" ry="5" transform="rotate(15 183.4 241.8)" fill="#d2b98f"/><ellipse cx="167.0" cy="234.9" rx="11" ry="5" transform="rotate(31 167.0 234.9)" fill="#d2b98f"/><ellipse cx="153.2" cy="223.6" rx="11" ry="5" transform="rotate(47 153.2 223.6)" fill="#d2b98f"/><ellipse cx="143.0" cy="209.1" rx="11" ry="5" transform="rotate(63 143.0 209.1)" fill="#d2b98f"/><ellipse cx="137.2" cy="192.2" rx="11" ry="5" transform="rotate(79 137.2 192.2)" fill="#d2b98f"/><ellipse cx="136.2" cy="174.4" rx="11" ry="5" transform="rotate(95 136.2 174.4)" fill="#d2b98f"/><ellipse cx="140.3" cy="157.1" rx="11" ry="5" transform="rotate(111 140.3 157.1)" fill="#d2b98f"/><ellipse cx="216.6" cy="241.8" rx="11" ry="5" transform="rotate(165 216.6 241.8)" fill="#d2b98f"/><ellipse cx="233.0" cy="234.9" rx="11" ry="5" transform="rotate(149 233.0 234.9)" fill="#d2b98f"/><ellipse cx="246.8" cy="223.6" rx="11" ry="5" transform="rotate(133 246.8 223.6)" fill="#d2b98f"/><ellipse cx="257.0" cy="209.1" rx="11" ry="5" transform="rotate(117 257.0 209.1)" fill="#d2b98f"/><ellipse cx="262.8" cy="192.2" rx="11" ry="5" transform="rotate(101 262.8 192.2)" fill="#d2b98f"/><ellipse cx="263.8" cy="174.4" rx="11" ry="5" transform="rotate(85 263.8 174.4)" fill="#d2b98f"/><ellipse cx="259.7" cy="157.1" rx="11" ry="5" transform="rotate(69 259.7 157.1)" fill="#d2b98f"/>
+  <text x="200" y="300" text-anchor="middle" fill="#d2b98f" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="38" letter-spacing="1">GRUPO RURAL</text>
+  <text x="200" y="338" text-anchor="middle" fill="#d2b98f" font-family="Archivo, sans-serif" font-weight="500" font-size="24">Siempre alerta</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Parche de PVC 3D</a></h3>
+            <p class="product-meta">Mín. 50 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 4,50 €</p>
+          </div>
+          <button class="add" type="button" data-name="Parche de PVC 3D">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="merch" data-name="pin esmaltado" hidden>
+          <a class="product-img" href="#producto" style="--tile:var(--t-blue)"><svg viewBox="0 0 400 440" role="img" aria-label="Pin esmaltado">
+  <path d="M200 60 L330 100 L330 230 C330 310 270 360 200 390 C130 360 70 310 70 230 L70 100 Z" fill="#b58f3e"/>
+  <path d="M200 82 L310 116 L310 230 C310 298 258 340 200 366 C142 340 90 298 90 230 L90 116 Z" fill="#1e2c48"/>
+  <path d="M90 200 H310 V236 H90 Z" fill="#c33b2c"/>
+  <polygon points="200.0,120.0 209.9,146.4 238.0,147.6 216.0,165.2 223.5,192.4 200.0,176.8 176.5,192.4 184.0,165.2 162.0,147.6 190.1,146.4" fill="#e9c96e"/>
+  <ellipse cx="185.5" cy="324.1" rx="11" ry="5" transform="rotate(15 185.5 324.1)" fill="#e9c96e"/><ellipse cx="171.2" cy="318.0" rx="11" ry="5" transform="rotate(31 171.2 318.0)" fill="#e9c96e"/><ellipse cx="159.0" cy="308.2" rx="11" ry="5" transform="rotate(47 159.0 308.2)" fill="#e9c96e"/><ellipse cx="150.1" cy="295.4" rx="11" ry="5" transform="rotate(63 150.1 295.4)" fill="#e9c96e"/><ellipse cx="145.0" cy="280.7" rx="11" ry="5" transform="rotate(79 145.0 280.7)" fill="#e9c96e"/><ellipse cx="144.2" cy="265.1" rx="11" ry="5" transform="rotate(95 144.2 265.1)" fill="#e9c96e"/><ellipse cx="147.7" cy="249.9" rx="11" ry="5" transform="rotate(111 147.7 249.9)" fill="#e9c96e"/><ellipse cx="214.5" cy="324.1" rx="11" ry="5" transform="rotate(165 214.5 324.1)" fill="#e9c96e"/><ellipse cx="228.8" cy="318.0" rx="11" ry="5" transform="rotate(149 228.8 318.0)" fill="#e9c96e"/><ellipse cx="241.0" cy="308.2" rx="11" ry="5" transform="rotate(133 241.0 308.2)" fill="#e9c96e"/><ellipse cx="249.9" cy="295.4" rx="11" ry="5" transform="rotate(117 249.9 295.4)" fill="#e9c96e"/><ellipse cx="255.0" cy="280.7" rx="11" ry="5" transform="rotate(101 255.0 280.7)" fill="#e9c96e"/><ellipse cx="255.8" cy="265.1" rx="11" ry="5" transform="rotate(85 255.8 265.1)" fill="#e9c96e"/><ellipse cx="252.3" cy="249.9" rx="11" ry="5" transform="rotate(69 252.3 249.9)" fill="#e9c96e"/>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Pin esmaltado</a></h3>
+            <p class="product-meta">Mín. 100 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 2,80 €</p>
+          </div>
+          <button class="add" type="button" data-name="Pin esmaltado">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="merch" data-name="llavero de pvc" hidden>
+          <a class="product-img" href="#producto" style="--tile:var(--t-coyote)"><svg viewBox="0 0 400 440" role="img" aria-label="Llavero de PVC: UME">
+  <circle cx="200" cy="84" r="46" fill="none" stroke="#9da09a" stroke-width="10"/>
+  <rect x="190" y="126" width="20" height="44" rx="8" fill="#8e8e86"/>
+  <circle cx="200" cy="280" r="118" fill="#5c4529"/>
+  <circle cx="200" cy="280" r="104" fill="#8a6a42"/>
+  <circle cx="200" cy="280" r="88" fill="none" stroke="#17140d" stroke-width="5"/>
+  <polygon points="200.0,222.0 209.9,248.4 238.0,249.6 216.0,267.2 223.5,294.4 200.0,278.8 176.5,294.4 184.0,267.2 162.0,249.6 190.1,248.4" fill="#17140d"/>
+  <text x="200" y="336" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-stretch="75%" font-size="24" fill="#17140d">UME</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Llavero de PVC</a></h3>
+            <p class="product-meta">Mín. 100 uds · personalizable</p>
+            <p class="product-price"><span>Desde</span> 2,20 €</p>
+          </div>
+          <button class="add" type="button" data-name="Llavero de PVC">Añadir a la cesta</button>
+        </li>
+        <li class="product" data-cat="regalos" data-name="placa grabada con cadena" hidden>
+          <a class="product-img" href="#producto" style="--tile:var(--t-stone)"><svg viewBox="0 0 400 440" role="img" aria-label="Placa grabada: CABO M. ORTEGA">
+  <path d="M180 30 C140 70 150 120 168 150" fill="none" stroke="#8e8e86" stroke-width="5" stroke-dasharray="2 7" stroke-linecap="round"/>
+  <rect x="70" y="140" width="260" height="170" rx="40" fill="#9da09a"/>
+  <rect x="80" y="150" width="240" height="150" rx="32" fill="#c3c6bf"/>
+  <circle cx="200" cy="168" r="9" fill="#8e8e86"/>
+  <text x="104" y="222" font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="22" fill="#3c3e39" letter-spacing="1">CABO M. ORTEGA</text>
+  <text x="104" y="254" font-family="Archivo, sans-serif" font-weight="500" font-stretch="75%" font-size="17" fill="#3c3e39" letter-spacing="1">MISIÓN LÍBANO 2026</text>
+  <text x="104" y="282" font-family="Archivo, sans-serif" font-weight="500" font-stretch="75%" font-size="18" fill="#3c3e39" letter-spacing="1">ESPAÑA</text>
+</svg></a>
+          <div class="product-info">
+            <h3><a href="#producto">Placa grabada con cadena</a></h3>
+            <p class="product-meta">Desde 1 ud · personalizable</p>
+            <p class="product-price"><span>Desde</span> 9 €</p>
+          </div>
+          <button class="add" type="button" data-name="Placa grabada con cadena">Añadir a la cesta</button>
+        </li>
+    </ul>
+    <p class="empty" id="empty" hidden>No hay productos con esa búsqueda. Prueba con «parche», «taza» o «moneda», o <a href="#unidades">pídenos lo que necesitas</a>.</p>
+  </section>
+
+  <section class="steps-band" aria-labelledby="h-steps">
+    <div class="wrap">
+      <h2 id="h-steps">Cómo se hace un pedido</h2>
+      <ol class="steps">
+        <li><b>Elige el producto</b><span>Del catálogo o algo que no veas aquí.</span></li>
+        <li><b>Mándanos el escudo o la idea</b><span>Una foto, un boceto a mano o el lema basta.</span></li>
+        <li><b>Aprueba el boceto</b><span>Gratis, en 48 h, con los cambios que pidas.</span></li>
+        <li><b>Recíbelo en la unidad</b><span>En 3 o 4 semanas, con foto antes del envío.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap protocol" aria-labelledby="h-proto">
+    <div class="protocol-art" aria-hidden="true">
+      <div class="art"><svg viewBox="0 0 400 440" role="img" aria-label="Metopa de madera con placa grabada: Coronel J. Álvarez">
+  <path d="M60 30 H340 V300 C340 360 280 400 200 420 C120 400 60 360 60 300 Z" fill="#5a3a1e"/>
+  <path d="M76 46 H324 V296 C324 348 272 382 200 400 C128 382 76 348 76 296 Z" fill="#7b5230"/>
+  <circle cx="200" cy="150" r="74" fill="#c9a24e"/>
+  <circle cx="200" cy="150" r="64" fill="#b58f3e"/>
+  <polygon points="200.0,104.0 211.4,134.4 243.7,135.8 218.4,156.0 227.0,187.2 200.0,169.3 173.0,187.2 181.6,156.0 156.3,135.8 188.6,134.4" fill="#ecd18a"/>
+  <rect x="96" y="262" width="208" height="76" fill="#d9c08a"/>
+  <text x="200" y="295" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="17" fill="#2b2112">Coronel J. Álvarez</text>
+  <text x="200" y="322" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" fill="#2b2112">Con el afecto de su regimiento</text>
+</svg></div>
+      <div class="art"><svg viewBox="0 0 400 440" role="img" aria-label="Moneda en estuche de regalo: RELEVO DE MANDO">
+  <path d="M60 90 H340 V170 H60 Z" fill="#1f2a44"/>
+  <path d="M72 102 H328 V170 H72 Z" fill="#2c3a5c"/>
+  <path d="M50 170 H350 V370 H50 Z" fill="#1f2a44"/>
+  <path d="M66 186 H334 V354 H66 Z" fill="#141c30"/>
+  <circle cx="200" cy="270" r="74" fill="#6f5a2c"/>
+  <circle cx="200" cy="270" r="68" fill="#c9a24e"/>
+  <circle cx="200" cy="270" r="42" fill="#4b5228"/>
+  <polygon points="200.0,240.0 206.9,258.5 226.6,259.3 211.2,271.6 216.5,290.7 200.0,279.8 183.5,290.7 188.8,271.6 173.4,259.3 193.1,258.5" fill="#e9c96e"/>
+  <text x="200" y="138" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-stretch="75%" font-size="20" fill="#c9a24e" letter-spacing="2">RELEVO DE MANDO</text>
+</svg></div>
+    </div>
+    <div class="protocol-text">
+      <h2 id="h-proto">Regalos protocolarios</h2>
+      <p>Para relevos de mando, visitas oficiales, juras de bandera y despedidas. Metopas con dedicatoria, monedas en estuche de terciopelo y placas grabadas, preparadas para entregar en el acto.</p>
+      <ul class="ticks">
+        <li>Dedicatoria y fecha grabadas en cada pieza</li>
+        <li>Estuche o caja de presentación incluidos</li>
+        <li>Pedidos urgentes en 10 días para fechas cerradas</li>
+      </ul>
+      <a class="btn ink" href="#catalogo" data-filter="regalos">Ver regalos protocolarios</a>
+    </div>
+  </section>
+
+  <section class="units" id="unidades" aria-labelledby="h-units">
+    <div class="wrap units-in">
+      <div>
+        <h2 id="h-units">Pedidos para unidades</h2>
+        <p>Si compras para una compañía, una promoción o una asociación, te preparamos un presupuesto cerrado con boceto en 24 h laborables.</p>
+      </div>
+      <dl class="packs">
+        <div><dt>Pack promoción</dt><dd>50 parches, 50 monedas y 50 llaveros con el mismo diseño</dd><dd class="pack-price">690 €</dd></div>
+        <div><dt>Pack compañía</dt><dd>40 camisetas técnicas y 40 parches de unidad</dd><dd class="pack-price">520 €</dd></div>
+        <div><dt>Pack despedida</dt><dd>Metopa con dedicatoria y 20 tazas con el lema</dd><dd class="pack-price">165 €</dd></div>
+      </dl>
+      <div class="contact">
+        <p>Escríbenos a <b class="copyable">pedidos@markaje.es</b> o por WhatsApp al <b class="copyable">600 000 000</b>.</p>
+        <a class="btn gold" href="mailto:pedidos@markaje.es?subject=Presupuesto%20para%20mi%20unidad">Pedir presupuesto</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand"><b>MARKAJE</b><p>Personalización para el Ejército, la Guardia Civil y la Policía.</p></div>
+    <nav aria-label="Categorías"><h2>Tienda</h2><ul><li><a href="#catalogo" data-filter="textil">Textil</a></li><li><a href="#catalogo" data-filter="tazas">Tazas</a></li><li><a href="#catalogo" data-filter="parches">Parches</a></li><li><a href="#catalogo" data-filter="merch">Merchandising</a></li><li><a href="#catalogo" data-filter="metopas">Metopas</a></li><li><a href="#catalogo" data-filter="regalos">Regalos protocolarios</a></li></ul></nav>
+    <nav aria-label="Ayuda"><h2>Ayuda</h2><ul><li><a href="#unidades">Pedidos para unidades</a></li><li><a href="#envios">Envíos y plazos</a></li><li><a href="#devoluciones">Cambios y devoluciones</a></li><li><a href="#emblemas">Uso de emblemas oficiales</a></li></ul></nav>
+    <div><h2>Contacto</h2><p>pedidos@markaje.es<br>600 000 000<br>Lunes a viernes, de 9 a 18 h</p></div>
+  </div>
+  <p class="wrap foot-legal">© 2026 Markaje · <a href="#privacidad">Privacidad</a> · <a href="#aviso-legal">Aviso legal</a></p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(() => {
+  const grid = document.getElementById('grid');
+  const items = [...grid.children];
+  const chips = [...document.querySelectorAll('[data-chip]')];
+  const q = document.getElementById('q');
+  const empty = document.getElementById('empty');
+  let cat = 'all';
+
+  // Shows the products of the chosen category that match the search; with neither, the first eight.
+  function apply() {
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    items.forEach((li, i) => {
+      const ok = (cat === 'all' || li.dataset.cat === cat) && (!term || li.dataset.name.includes(term));
+      const visible = ok && (cat !== 'all' || term || i < 8);
+      li.hidden = !visible;
+      if (visible) shown++;
+    });
+    empty.hidden = shown > 0;
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.chip === cat)));
+  }
+
+  chips.forEach((c) => c.addEventListener('click', () => { cat = c.dataset.chip; apply(); }));
+  q.addEventListener('input', () => {
+    if (q.value.trim()) cat = 'all';
+    apply();
+    if (q.value.trim()) document.getElementById('catalogo').scrollIntoView({ block: 'start' });
+  });
+
+  document.querySelectorAll('[data-filter]').forEach((a) => a.addEventListener('click', () => {
+    cat = a.dataset.filter;
+    q.value = '';
+    apply();
+    menu.setAttribute('aria-expanded', 'false');
+    cats.classList.remove('open');
+  }));
+
+  // Basket: a counter and a short notice; checkout is not wired in this mock-up.
+  const count = document.getElementById('count');
+  const toast = document.getElementById('toast');
+  let n = 0, timer;
+  grid.addEventListener('click', (e) => {
+    const b = e.target.closest('.add');
+    if (!b) return;
+    count.textContent = String(++n);
+    count.classList.add('bump');
+    setTimeout(() => count.classList.remove('bump'), 200);
+    toast.textContent = `Añadido a la cesta: ${b.dataset.name}`;
+    toast.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(() => { toast.hidden = true; }, 2600);
+  });
+
+  const menu = document.querySelector('.menu-btn');
+  const cats = document.getElementById('cats');
+  menu.addEventListener('click', () => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded', String(open));
+    cats.classList.toggle('open', open);
+  });
+})();
+
+</script>
